@@ -24,7 +24,7 @@ URLSelector(text){
       .catch(function(error){
           const errorMessage = document.getElementById('paragraph')
           errorMessage.innerHTML = `No GIF Found!`
-      })
+      });
 }
 
 checkValidText(text){
