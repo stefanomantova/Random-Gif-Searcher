@@ -1,4 +1,5 @@
 class searchGif{
+
     constructor(text){
         this.text = text; 
     }
@@ -11,20 +12,19 @@ clicktoSearch() {
     }
 }
 
-URLSelector(text){
+ async URLSelector(text){
     const img = document.getElementById('img');
+    const errorMessage = document.getElementById('paragraph');
+     try{
     const fetchString = 'https://api.giphy.com/v1/gifs/translate?api_key=NKqWDTMhWdQFpLgujRQkzyP7LGVcxBP6&s='+text;
-    fetch(fetchString, {mode: 'cors'})
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(response) {
-        img.src=response.data.images.original.url;
-      })
-      .catch(function(error){
-          const errorMessage = document.getElementById('paragraph')
-          errorMessage.innerHTML = `No GIF Found!`
-      });
+    const response = await fetch(fetchString, {mode: 'cors'});
+    const imgData = await response.json();
+    img.src=imgData.data.images.original.url;
+    errorMessage.innerHTML = ``
+     }catch(error){
+        errorMessage.innerHTML = `No GIF Found!`
+          img.src = '#'
+      }
 }
 
 checkValidText(text){
